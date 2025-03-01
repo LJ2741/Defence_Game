@@ -1,5 +1,6 @@
 Player player = new Player();
 ArrayList<Spear> spears; 
+JSONObject json;
 int savedTime = millis();
 int totalTime = 1000;
 int lives = 3;
@@ -9,6 +10,8 @@ int highscore;
 void setup() {
   background(0);
   fullScreen();
+  json = loadJSONObject("data/highscore.json");
+  highscore = json.getInt("highscore");
   spears = new ArrayList<Spear>();
   
 }
@@ -16,6 +19,7 @@ void setup() {
 void draw() {
   background(0);
   displayText();
+  reset();
   spawnSpears();
   player.display();
   
@@ -26,7 +30,15 @@ void draw() {
   
   if (keyPressed) {
     player.defend(key);
+    
+  } else if (keyCode == BACKSPACE) { // allows the user to reset their highscore by pressing backspace
+    highscore = 0;
+    json = loadJSONObject("data/highscore.json");
+    json.setInt("highscore",highscore);
+    saveJSONObject(json,"data/highscore.json");
+    
   } else {
+    
     player.spos = new PVector(0,0);
   }
 
@@ -65,5 +77,25 @@ void displayText() {
   text("HighScore: " + highscore,displayWidth - 7,90);
 }
   
+void reset() {
+  if (lives <= 0) {
+    lives = 0;
+    score = 0;
+    lives = 3;
+    
+    for (int i = 0; i < spears.size(); i++) {
+      spears.remove(i);
+    }
+    
+    if (score > highscore) {
+      highscore = score;
+      json = loadJSONObject("data/highscore.json");
+      json.setInt("highscore",highscore);
+      saveJSONObject(json,"data/highscore.json");
+   
+    }
+  }
+}
+    
   
   
