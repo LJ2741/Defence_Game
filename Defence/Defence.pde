@@ -23,6 +23,8 @@ void draw() {
   
   if (keyPressed) {
     player.defend(key);
+  } else {
+    player.spos = new PVector(0,0);
   }
 
 }
@@ -39,8 +41,12 @@ void spawnSpears() {
 
 
 void collison(Player p,Spear s) {
-  if (dist(p.pos.x,p.pos.y,s.pos.x,s.pos.y) < 130) {
+  if (dist(p.pos.x,p.pos.y,s.pos.x,s.pos.y) < 120 && p.dead == false) {
     spears.remove(s);
     p.dead = true;
+  }
+  
+  if (dist(p.spos.x,p.spos.y,s.pos.x,s.pos.y) < 65) {
+    spears.remove(s);
   }
 }

@@ -4,6 +4,7 @@ class Player {
   PVector pos,spos;
   
   Player() {
+    spos = new PVector(0,0);
   }
   
   

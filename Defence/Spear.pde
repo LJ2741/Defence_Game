@@ -23,14 +23,14 @@ class Spear {
     
     if (ran == 2) {
       pos = new PVector(1275,0); // top
-      velocity = new PVector(0,10);
+      velocity = new PVector(0,7);
       w = 10;
       h = 75;
     } 
     
     if (ran == 3) {
       pos = new PVector(1275,1800); // bottom
-      velocity = new PVector(0,-10);
+      velocity = new PVector(0,-7);
       w = 10;
       h = 75;
     } 
