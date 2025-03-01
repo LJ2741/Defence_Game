@@ -2,7 +2,8 @@ Player player = new Player();
 ArrayList<Spear> spears; 
 JSONObject json;
 int savedTime = millis();
-int totalTime = 1000;
+int totalTime = 1500;
+int e_speed = 10;
 int lives = 3;
 int score = 0;
 int highscore;
@@ -19,7 +20,7 @@ void setup() {
 void draw() {
   background(0);
   displayText();
-  reset();
+  death();
   spawnSpears();
   player.display();
   
@@ -48,7 +49,7 @@ void draw() {
 void spawnSpears() {
   int passedTime = millis() - savedTime;
   if (passedTime > totalTime) {
-    spears.add(new Spear());
+    spears.add(new Spear(e_speed));
     savedTime = millis();
   }
 }
@@ -56,14 +57,16 @@ void spawnSpears() {
 
 
 void collison(Player p,Spear s) {
-  if (dist(p.pos.x,p.pos.y,s.pos.x,s.pos.y) < 120 && p.dead == false) {
+  if (dist(p.pos.x,p.pos.y,s.pos.x,s.pos.y) < 120 && p.dead == false) { // a spear has hit the player
     spears.remove(s);
     lives -= 1;
   }
   
-  if (dist(p.spos.x,p.spos.y,s.pos.x,s.pos.y) < 65) {
+  if (dist(p.spos.x,p.spos.y,s.pos.x,s.pos.y) < 65) { // player blocked a spear
     spears.remove(s);
     score += 100;
+    e_speed *= 1.075; // enemies increase in speed for every block
+    
   }
 }
 
@@ -77,11 +80,11 @@ void displayText() {
   text("HighScore: " + highscore,displayWidth - 7,90);
 }
   
-void reset() {
+void death() {
   if (lives <= 0) {
     lives = 0;
     score = 0;
-    lives = 3;
+    player.dead = true;
     
     for (int i = 0; i < spears.size(); i++) {
       spears.remove(i);
