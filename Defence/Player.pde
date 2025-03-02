@@ -10,6 +10,7 @@ class Player {
   
   void display() {
     if (dead == false) {
+      fill(255);
       pos = new PVector(displayWidth/2,displayHeight/2);
       ellipse(pos.x,pos.y,75,75);
     }
@@ -18,7 +19,7 @@ class Player {
   void defend(char k) {
     if (dead == false) {
       rectMode(CENTER);
-      
+      fill(125);
       if (k == 'a') {
         spos = new PVector(displayWidth/2 - 125,displayHeight/2);
         rect(displayWidth/2 - 125,displayHeight/2,10,100); // left

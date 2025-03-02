@@ -71,6 +71,7 @@ void collison(Player p,Spear s) {
 }
 
 void displayText() {
+  fill(255);
   textSize(70);
   textAlign(LEFT);
   text("Score: " + score,7,90);
@@ -78,6 +79,11 @@ void displayText() {
   text("Lives: " + lives,displayWidth/2,90);
   textAlign(RIGHT);
   text("HighScore: " + highscore,displayWidth - 7,90);
+  textAlign(CENTER);
+  text("A",50,displayHeight/2);
+  text("W",displayWidth/2,150);
+  text("D",displayWidth - 50,displayHeight/2);
+  text("S",displayWidth/2,displayHeight - 70);
 }
   
 void death() {
